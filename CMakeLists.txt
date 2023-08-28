@@ -1,14 +1,19 @@
 cmake_minimum_required(VERSION 3.21.2)
 
-project(CUDA_computeShaders)
+project(HarroShaderEngine)
 
 # to build the library
 add_subdirectory(lib)
+
+file(READ src/shaders/shader_to_run.txt SHADER_PATH)
 
 # to build the executable
 add_executable(
     shader
     src/main.cc
+
+    src/shaders/${SHADER_PATH}/callback.cc
+
     )
 
 set_target_properties(shader PROPERTIES
@@ -33,4 +38,4 @@ target_include_directories(shader PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/
 )
 
-target_link_libraries(shader PRIVATE libCUDA_computeShaders)
+target_link_libraries(shader PRIVATE libHarroShaderEngine)

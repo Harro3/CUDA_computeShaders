@@ -1,16 +1,16 @@
 cmake_minimum_required(VERSION 3.21.2)
 
-project(CUDA_computeShaders)
+project(HarroShaderEngine)
 
 
-add_library(libCUDA_computeShaders SHARED
+add_library(libHarroShaderEngine SHARED
     "shader_frames.cc"
     "shader_functions.cc"
     "shader.cc"
 )
 
-set_target_properties(libCUDA_computeShaders PROPERTIES OUTPUT_NAME CUDA_computeShaders)
-set_target_properties(libCUDA_computeShaders PROPERTIES
+set_target_properties(libHarroShaderEngine PROPERTIES OUTPUT_NAME HarroShaderEngine)
+set_target_properties(libHarroShaderEngine PROPERTIES
     CXX_STANDARD 11
     CXX_EXTENSIONS OFF
     CUDA_SEPARABLE_COMPILATION ON
@@ -18,10 +18,10 @@ set_target_properties(libCUDA_computeShaders PROPERTIES
 
 # link SFML
 find_package(SFML 2.5 COMPONENTS graphics REQUIRED)
-target_link_libraries(libCUDA_computeShaders PUBLIC sfml-graphics)
+target_link_libraries(libHarroShaderEngine PUBLIC sfml-graphics)
 
 
 
-target_compile_options(libCUDA_computeShaders PRIVATE -Wall -Wextra -Werror -pedantic)
+target_compile_options(libHarroShaderEngine PRIVATE -Wall -Wextra -Werror -pedantic)
 
-target_include_directories(libCUDA_computeShaders PUBLIC "./")
+target_include_directories(libHarroShaderEngine PUBLIC "./")
