@@ -7,12 +7,16 @@ add_subdirectory(lib)
 
 file(READ src/shaders/shader_to_run.txt SHADER_PATH)
 
+file(GLOB_RECURSE SHADER_FILES
+    src/shaders/${SHADER_PATH}/*.cc
+)
+
 # to build the executable
 add_executable(
     shader
-    src/main.cc
+    #src/main.cc
 
-    src/shaders/${SHADER_PATH}/callback.cc
+    ${SHADER_FILES}
 
     )
 

@@ -1,6 +1,11 @@
-#include "../config.hh" 
-
 #include "shader.hh" 
+
+Shader shader;
+
+const int width = 1000;
+const int height = 1000;
+
+const int framerate = 50;
 
 color palette(float t)
 {
@@ -22,7 +27,7 @@ void callback(int x, int y, double seconds, color &c)
 
     color final_color = color{0.0, 0.0, 0.0, 1.0};
 
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 3; i++)
     {
         uv = fract(uv * 1.5) - 0.5;
         float d = length(uv) * exp(-length(uv0));
@@ -40,4 +45,9 @@ void callback(int x, int y, double seconds, color &c)
     }
 
     c = final_color;
+}
+
+int main()
+{
+    shader.width(width).height(height).framerate(framerate).callback(callback).run();
 }

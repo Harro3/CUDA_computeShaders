@@ -1,6 +1,5 @@
 #include "shader.hh"
 
-#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cstdint>
 #include <sys/types.h>
@@ -47,8 +46,8 @@ Shader &Shader::run()
 {
 
     // create the window
-    sf::RenderWindow window(sf::VideoMode(screen_width_, screen_height_), "Shader");
-	window.setFramerateLimit(framerate_);
+	window_ = std::make_shared<sf::RenderWindow>(sf::VideoMode(screen_width_, screen_height_), "Shader");
+	window_->setFramerateLimit(framerate_);
 
     // create a texture
     sf::Texture texture;
@@ -65,19 +64,19 @@ Shader &Shader::run()
 	int nb_threads = std::thread::hardware_concurrency();
 
 	std::chrono::high_resolution_clock::time_point begin = std::chrono::high_resolution_clock::now();
-    while (window.isOpen())
+    while (window_->isOpen())
     {
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
-        while (window.pollEvent(event))
+        while (window_->pollEvent(event))
         {
             // "close requested" event: we close the window
             if (event.type == sf::Event::Closed)
 			{
-                window.close();
+                window_->close();
 			}
 		}
-		window.clear();
+		window_->clear();
 
 		std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
 		double seconds = std::chrono::duration_cast<std::chrono::duration<double>>(now - begin).count();
@@ -119,10 +118,10 @@ Shader &Shader::run()
 		// update the texture
 		texture.update(pixbuff);
 		sf::Sprite sprite(texture);
-		window.draw(sprite);
+		window_->draw(sprite);
 
 		// end the current frame
-		window.display();
+		window_->display();
 
 			
 	}

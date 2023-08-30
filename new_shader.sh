@@ -7,8 +7,8 @@ do
     # check if shader is a directory
     if [ -d src/shaders/$shader ]
     then
-        # check if it contains a callback.cc file
-        if [ -f src/shaders/$shader/callback.cc ]
+        # check if it contains a main.cc file
+        if [ -f src/shaders/$shader/main.cc ]
         then
         shaders="$shaders $shader"
         fi
@@ -40,20 +40,6 @@ do
 done
 
 mkdir src/shaders/$shader_name
-touch src/shaders/$shader_name/callback.cc
+touch src/shaders/$shader_name/main.cc
 
-template="#include \"../config.hh\" \n\n\
-#include \"shader.hh\" \n\n\
-void callback(int x, int y, double seconds, color &c) \n\
-{ \n\
-    // your code here \n\
-    // x and y are the pixel coordinates \n\
-    // seconds is the number of seconds since the program started \n\
-    // c is the color of the pixel \n\n\
-    // example: \n\
-    c.r = x / 512.0; \n\
-    c.g = y / 512.0; \n\
-    c.b = seconds / 10.0; \n\
-} \n"
-
-echo -e $template > src/shaders/$shader_name/callback.cc
+cp src/shaders/template.cc src/shaders/$shader_name/main.cc
